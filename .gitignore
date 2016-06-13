@@ -1,0 +1,5 @@
+static/www/avatar/*
+static/www/book/*
+!static/www/avatar/default-avatar.png
+!static/www/book/default-book.png
+/conf/config.conf
