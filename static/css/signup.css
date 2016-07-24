@@ -1,0 +1,13 @@
+.warn-message{
+     margin-top:-17px;
+     font-size:15px;
+    text-indent: 10px;
+     color:#a94442;
+     line-height: 37px;
+    width:476px;
+    height:37px;
+    background-color:#f2dede;
+    border:1px solid #dca7a7;
+    border-radius:3px;
+    display: none;
+ }
