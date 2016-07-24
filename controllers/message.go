@@ -3,6 +3,7 @@ package controllers
 import (
 	"shudong/models"
 	"shudong/utils"
+	"strings"
 )
 
 type MessageController struct {
@@ -103,4 +104,73 @@ func (self *MessageController) HaveNewMessage() {
 	}
 	out["new"] = models.HaveNewMessage(self.userId)
 	self.jsonResult(out)
+}
+
+// SendBroadcast 发送广播
+// TODO: new api 发送广播
+func (self *MessageController) SendBroadcast() {
+	if !self.authAdmin() {
+		self.redirect("/")
+		return
+	}
+	// 是管理员
+	content := self.GetString("content")
+	content = strings.TrimSpace(content)
+	out := make(map[string]interface{})
+	if len(content) == 0 {
+		out["success"] = false
+		out["info"] = "需要输入内容"
+		self.jsonResult(out)
+		return
+
+	}
+	err := models.SendBroadcast(content)
+	if err != nil {
+		out["success"] = false
+		out["info"] = err.Error()
+		self.jsonResult(out)
+		return
+	}
+	out["success"] = true
+	out["info"] = "发送成功"
+	self.jsonResult(out)
+}
+
+// SendMessage 发送消息
+// TODO: new api
+func (self *MessageController) SendMessage() {
+	if !self.authAdmin() {
+		self.redirect("/")
+		return
+	}
+	// 是管理员
+	username := self.GetString("username")
+	content := self.GetString("content")
+	content = strings.TrimSpace(content)
+	if len(content) == 0 {
+		out["success"] = false
+		out["info"] = "需要输入内容"
+		self.jsonResult(out)
+		return
+
+	}
+	user, err := models.GetUserByUsername(username)
+	if err != nil {
+		out["success"] = false
+		out["info"] = "找不到用户"
+		self.jsonResult(out)
+		return
+	}
+	ok := models.SendMessage(user.Id, content)
+	if !ok {
+		out["success"] = false
+		out["info"] = "发送消息失败"
+		self.jsonResult(out)
+		return
+	} else {
+		out["success"] = true
+		out["info"] = "发送消息成功"
+		self.jsonResult(out)
+		return
+	}
 }

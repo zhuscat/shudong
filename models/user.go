@@ -30,6 +30,7 @@ type User struct {
 	ResetToken       string
 	ResetExpiredDate time.Time `orm:"null"`
 	ExpiredDate      time.Time
+	CanComment       bool `orm:"default(true)"`
 }
 
 // Name Email 构成的内容应该是唯一的
@@ -164,4 +165,24 @@ func ResetUserPassword(username, token, password string) bool {
 
 func UpdateUser(user *User) (int64, error) {
 	return orm.NewOrm().Update(user)
+}
+
+// UserGetList 接受参数 page 页数 pageSize 一页最多的个数 filters 过滤条件
+// 如: [can_comment: true]
+// 返回 User数组和User的总量
+// 给查找用户列表一个统一的接口
+
+func UserGetList(page int, pageSize int, filters ...interface{}) ([]*User, int64) {
+	offset := (page - 1) * pageSize
+	var users []*User
+	query := orm.NewOrm().QueryTable("user")
+	if len(filters) >= 2 && len(filters)%2 == 0 {
+		l := len(filters)
+		for i := 0; i < l; i += 2 {
+			query = query.Filter(filters[i].(string), filters[i+1])
+		}
+	}
+	total, _ := query.Count()
+	query.OrderBy("-CreatedTime").Limit(pageSize, offset).All(&users)
+	return users, total
 }

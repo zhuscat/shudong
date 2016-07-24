@@ -2,8 +2,9 @@ package models
 
 import (
 	"errors"
-	"github.com/astaxie/beego/orm"
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 // 对某一个商品的留言

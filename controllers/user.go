@@ -174,3 +174,80 @@ func (self *UserController) ForgetPassword() {
 	}
 	self.TplName = "forgot.tpl"
 }
+
+// 检查用户名是否可以注册
+// 未测试过是否有用
+// 不知道在不存在的用户的时候会不会发生 err
+// TODO: new api
+func (self *UserController) CheckUsernameAvailabel() {
+	username := self.GetString("username")
+	out := make(map[string]interface{})
+	if len(username) < 5 || len(username) > 20 {
+		out["success"] = false
+		out["info"] = "用户名长度为5-20个字符"
+		self.jsonResult(out)
+		return
+	}
+	user, err := models.GetUserByUsername(username)
+	if err != nil {
+		out["success"] = false
+		out["info"] = "数据库内部出现错误"
+		self.jsonResult(out)
+		return
+	}
+	if user.Id != 0 {
+		out["success"] = true
+		out["info"] = "用户名可以使用"
+		self.jsonResult(out)
+		return
+	} else {
+		out["success"] = false
+		out["info"] = "用户名已经被注册过"
+		self.jsonResult(out)
+		return
+	}
+}
+
+// 设置用户禁言
+// TODO: new api
+func (self *UserController) SetUserCanComment() {
+	if !self.authAdmin() {
+		self.redirect("/")
+		return
+	}
+	uidStr := self.GetString("id")
+	out := make(map[string]interface{})
+	canComment, err := self.GetBool("can_comment")
+	if err != nil {
+		out["success"] = false
+		out["info"] = "操作方法错误"
+		self.jsonResult(out)
+		return
+	}
+	uid, err := strconv.ParseInt(uidStr, 10, 64)
+	if err != nil {
+		out["success"] = false
+		out["info"] = "参数错误"
+		self.jsonResult(out)
+		return
+	}
+	user, err := models.GetUser(uid)
+	if err != nil || user.Id == 0 {
+		out["success"] = false
+		out["info"] = "获取用户名错误"
+		self.jsonResult(out)
+		return
+	}
+	user.CanComment = canComment
+	_, err = models.UpdateUser(user)
+	if err != nil {
+		out["success"] = false
+		out["info"] = "数据库内部错误"
+		self.jsonResult(out)
+		return
+	}
+	out["success"] = true
+	out["info"] = "操作成功"
+	self.jsonResult(out)
+	return
+}

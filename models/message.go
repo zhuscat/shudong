@@ -1,8 +1,10 @@
 package models
 
 import (
-	"github.com/astaxie/beego/orm"
+	"errors"
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 // 系统消息
@@ -101,4 +103,30 @@ func ReadMessage(uid int64, mid int64) error {
 func ReadAllMessages(uid int64) error {
 	_, err := orm.NewOrm().Raw("UPDATE `message` SET `read` = 1 WHERE `user_id` = ?", uid).Exec()
 	return err
+}
+
+// SendBroadcast 发送广播
+// TODO: new api
+func SendBroadcast(content string) error {
+	o := orm.NewOrm()
+	o.Begin()
+	var users []*User
+	_, err := o.QueryTable("user").All(&users)
+	if err != nil {
+		o.Rollback()
+		return errors.New("获取用户失败")
+	}
+	for _, user := range users {
+		message := Message{UserId: user.Id, Content: content, SendTime: time.Now()}
+		_, err = o.Insert(&message)
+		if err != nil {
+			o.Rollback()
+			return errors.New("发送广播时出现错误")
+		}
+	}
+	err = o.Commit()
+	if err != nil {
+		return err
+	}
+	return nil
 }
