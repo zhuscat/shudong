@@ -36,7 +36,7 @@
   padding-top: 16px;
 }
 .comment-user-name{
-  font-family:"微软雅黑";
+font-family:"微软雅黑";
 font-size:12px;
 color:#5ab6f3;
 line-height:17px;
@@ -46,7 +46,7 @@ position: relative;
 bottom: 67px;
 }
 .comment-message{
-  font-family:"微软雅黑";
+font-family:"微软雅黑";
 font-size:12px;
 color:#4a4a4a;
 line-height:17px;
@@ -56,7 +56,7 @@ position: relative;
 bottom: 110px;
 }
 .time{
-  font-family:"微软雅黑";
+font-family:"微软雅黑";
 font-size:12px;
 color:#9b9b9b;
 line-height:17px;
@@ -67,7 +67,7 @@ position: relative;
 bottom: 172px;
 }
 .delete-comment-button{
-  background:#d9534f;
+background:#d9534f;
 border:1px solid #d9534f;
 border-radius:4px;
 width:64px;
@@ -97,17 +97,17 @@ height:67px;
 
 }
 #box1{
-  position: relative;
+position: relative;
 left: 131px;
 bottom: 232px;
 }
 #box2{
-  position: relative;
+position: relative;
 left: 131px;
 bottom: 200px;
 }
 #box3{
-  position: relative;
+position: relative;
 left: 131px;
 bottom: 168px;
 }

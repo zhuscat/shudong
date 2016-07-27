@@ -1,6 +1,6 @@
 
 .manage-item{
-	background:#ffffff;
+background:#ffffff;
 border:1px solid #dedada;
 box-shadow:0px 1px 2px 0px rgba(0,0,0,0.20);
 width:291px;
@@ -19,10 +19,10 @@ height:94px;
 	padding-top: 16px;
 }
 .item-name{
-	padding-left: 88px;
-	position: relative;
-	bottom: 85px;
-	font-family:"微软雅黑";
+padding-left: 88px;
+position: relative;
+bottom: 85px;
+font-family:"微软雅黑";
 font-size:16px;
 color:#4a4a4a;
 line-height:22px;

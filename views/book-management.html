@@ -2,16 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>管理书籍</title>
+  <title>书籍管理</title>
   <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="../static/css/main.css">
   <link rel="stylesheet" type="text/css" href="../static/css/tooltip.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/manage1.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/manage2.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/manage3.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/user-management.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/comment-management.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/book-management.css">
   <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>
   <script type="text/javascript" src="../static/js/tooltip.js"></script>
   <script type="text/javascript" src="../static/js/shudong.js"></script>
+  <script type="text/javascript" src="../static/js/back-stage-management.js"></script>
 </head>
 <body>
 <div class="header">
@@ -67,8 +68,8 @@
  
     <ul class="edit">
       <li><button class="see">查看</button></li>
-      <li><button class="down">下架</button></li>
-      <li><button class="delete">删除</button></li>
+      <li><button class="down" onclick="undercarriage('<?php echo $book[book_id];?>')">下架</button></li>
+      <li><button class="delete" onclick="deletebook('<?php echo $book[book_id];?>')" >删除</button></li>
     </ul>
     <hr class="divided" id="divided1">
     </hr>
@@ -76,7 +77,7 @@
 
      <div id="under" >
       <p>用户名</p>
-      <img src="E:/shudong/shudong-git/shudong-front/shudong-page/head.png" id="headpic">
+      <img src="../static/img/head.png" id="headpic">
     </div>
 
  </div>  

@@ -2,14 +2,15 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>管理用户</title>
+  <title>用户管理</title>
   <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="../static/css/main.css">
   <link rel="stylesheet" type="text/css" href="../static/css/tooltip.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/manage1.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/user-management.css">
   <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>
   <script type="text/javascript" src="../static/js/tooltip.js"></script>
   <script type="text/javascript" src="../static/js/shudong.js"></script>
+  <script type="text/javascript" src="../static/js/back-stage-management.js"></script>
 </head>
 <body>
 <div class="header">
@@ -50,35 +51,35 @@
   <button class="send-message-button">发送</button>
 </div>
 
-<div class="user-box user-box-notban1">
+<div class="user-box user-box-notban1" id="user1">
 <img src="../static/img/head.png" class="head-picture"></img>
 <p class="user-name">用户名</p>
 <button class="search-information-button">查看资料</button>
-<button class="ban-button">禁言</button>
+<button class="ban-button" onclick="gag('<?php echo $user[user_id];?>')">禁言</button>
 </div>
 
-<div class="user-box " id="user-box-ban2">
+<div class="user-box " id="user-box-ban2" id="user2">
 <img src="../static/img/head.png" class="head-picture"></img>
 <p class="user-name">用户名</p>
 <button class="search-information-button">查看资料</button>
-<button class="not-ban-button">解除禁言</button>
+<button class="not-ban-button" onclick="removegag('<?php echo $user[user_id];?>')">解除禁言</button>
 </div>
 
-<div class="user-box" id="user-box-notban3">
+<div class="user-box" id="user-box-notban3" id="user3">
 <img src="../static/img/head.png" class="head-picture"></img>
 <p class="user-name">用户名</p>
 <button class="search-information-button">查看资料</button>
-<button class="ban-button">禁言</button>
+<button class="ban-button" onclick="gag('<?php echo $user[user_id];?>')">禁言</button>
 </div>
 
-<div class="user-box" id="user-box-notban4">
+<div class="user-box" id="user-box-notban4" id="user4">
 <img src="../static/img/head.png" class="head-picture"></img>
 <p class="user-name">用户名</p>
 <button class="search-information-button">查看资料</button>
-<button class="ban-button">禁言</button>
+<button class="ban-button" onclick="gag('<?php echo $user[user_id];?>')">禁言</button>
 </div>
 
-<div class="user-box" id="user-box-notban5">
+<div class="user-box" id="user-box-notban5" id="user5">
 <img src="../static/img/head.png" class="head-picture"></img>
 <p class="user-name">用户名</p>
 <button class="search-information-button">查看资料</button>
@@ -90,6 +91,7 @@
 </div>
 
 </body>
+
 <script type="text/javascript">
 $(function () {
   $('[data-toggle="tooltip"]').tooltip({

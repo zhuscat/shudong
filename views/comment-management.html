@@ -2,15 +2,16 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>管理评论</title>
+  <title>评论管理</title>
   <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="../static/css/main.css">
   <link rel="stylesheet" type="text/css" href="../static/css/tooltip.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/manage1.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/manage2.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/user-management.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/comment-management.css">
   <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>
   <script type="text/javascript" src="../static/js/tooltip.js"></script>
   <script type="text/javascript" src="../static/js/shudong.js"></script>
+  <script type="text/javascript" src="../static/js/back-stage-management.js"></script>
 </head>
 <body>
 <div class="header">
@@ -63,7 +64,7 @@
 <p class="comment-user-name">用户名</p>
 <p class="comment-message">再便宜点就买了</p>
 <p class="time">刚刚</p>
-<button class="delete-comment-button" onclick="delete_comment()" id="delete-button2">删除</button>
+<button class="delete-comment-button" onclick="delete_comment('<?php echo $comment[comment_id];?>')">删除</button>
 <hr class="divided-line"></hr>
 </div>
 
@@ -72,7 +73,7 @@
 <p class="comment-user-name">用户名</p>
 <p class="comment-message">再便宜点就买了</p>
 <p class="time">刚刚</p>
-<button class="delete-comment-button">删除</button>
+<button class="delete-comment-button" onclick="delete_comment('<?php echo $comment[comment_id];?>')">删除</button>
 <hr class="divided-line"></hr>
 </div>
 
@@ -108,5 +109,5 @@ $(document).ready(function() {
   setInterval(haveNewMessage, 5000);
 });
 </script>
-<script type="text/javascript" src="../static/js/back-stage-management.js"></script>
+
 </html>
