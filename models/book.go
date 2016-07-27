@@ -182,3 +182,22 @@ func GetRecommendBookWithUserId(uid int64, exceptBookId int64) ([]*Book, error) 
 func UpdateBook(book *Book) (int64, error) {
 	return orm.NewOrm().Update(book)
 }
+
+// BookGetList 接受参数 page 页数 pageSize 一页最多的个数 filters 过滤条件
+// 如: ["id", 1, "onsale", true]
+// 返回 Book数组和Book的总量
+// 给查找书籍列表一个统一的接口
+func BookGetList(page int, pageSize int, filters ...interface{}) ([]*Book, int64) {
+	offset := (page - 1) * pageSize
+	var books []*Book
+	query := orm.NewOrm().QueryTable("book")
+	if len(filters) >= 2 && len(filters)%2 == 0 {
+		l := len(filters)
+		for i := 0; i < l; i += 2 {
+			query = query.Filter(filters[i].(string), filters[i+1])
+		}
+	}
+	total, _ := query.Count()
+	query.OrderBy("-CreatedTime").Limit(pageSize, offset).All(&books)
+	return books, total
+}

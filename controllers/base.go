@@ -48,6 +48,16 @@ func (self *BaseController) auth() bool {
 	}
 }
 
+// 检查是不是管理员
+// TODO: new api
+func (self *BaseController) authAdmin() bool {
+	if len(self.userName) > 0 && self.user.IsAdmin == true {
+		return true
+	} else {
+		return false
+	}
+}
+
 func (self *BaseController) isActive() bool {
 	user, err := models.GetUser(self.userId)
 	if err != nil {

@@ -5,7 +5,7 @@ import (
 )
 
 func IsValidUsername(username string) bool {
-	match, _ := regexp.MatchString("^[a-zA-Z0-9_]{3,16}$", username)
+	match, _ := regexp.MatchString("^[a-zA-Z0-9_]{5,20}$", username)
 	return match
 }
 
