@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>管理书籍</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage1.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage2.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage3.css">
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>
+  <script type="text/javascript" src="../static/js/tooltip.js"></script>
+  <script type="text/javascript" src="../static/js/shudong.js"></script>
+</head>
+<body>
+<div class="header">
+<div class="logo"><a href="/"><img src="/static/img/logo.png" alt="logo"></a></div>
+<div class="search">
+<i class="fa fa-search"></i>
+<form action="/search">
+  <input type="text" name="wd" placeholder="书名、作者、ISBN...">
+</form>
+</div>
+
+<div class="menu">
+
+  <a class="header-menu-item" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="发布"><i class="fa fa-plus"></i></a>
+  <a class="header-menu-item" href="/message" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
+  <a class="header-menu-item" href="/profile/published/all" href="/publish-book" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/signout" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a>
+
+
+</div>
+</div>
+
+<ul id="book_class" >
+    <li  class="class-selected" id="all"><a href="" >所有</a></li>
+    <li  class="class" id="sale"><a href="" >正在卖的</a></li>
+    <li  class="class" id="old"><a href="">已下架的</a></li>
+    
+      <li class="search_book">
+      <i class="fa fa-search"></i><input type="text" placeholder="搜索发布的书籍"/>
+      </li> 
+  
+</ul>
+<div class="broadcast-box">
+  <ul class="send">
+ <li class="broadcast selected"><a href="">广播</a></li>
+ <li class="inform unselected"><a href="">通知</a></li>
+</ul>
+  <textarea class="text-frame">要发什么通知给大家...</textarea>
+  <button class="send-message-button">发送</button>
+</div>
+
+<div class="information">
+  <div id="information-operation"> 
+    <img src="../static/img/book.png"  class="book-picture"/>
+    <ul class="book_information">
+     <li ><a href="" class="book_name">欢乐颂</a></li>
+     <li ><p class="book_price">￥18.00<p></li>
+     <li><p class="author">作者：阿耐</p></li>
+     <li><p class="other_information">出版社: 四川文艺出版社</p></li>
+     <li><p class="other_information">ISBN: 9787541142659</p></li>
+     <li><p class="other_information">数量：1</p></li>
+  </ul>
+ 
+    <ul class="edit">
+      <li><button class="see">查看</button></li>
+      <li><button class="down">下架</button></li>
+      <li><button class="delete">删除</button></li>
+    </ul>
+    <hr class="divided" id="divided1">
+    </hr>
+  </div>
+
+     <div id="under" >
+      <p>用户名</p>
+      <img src="E:/shudong/shudong-git/shudong-front/shudong-page/head.png" id="headpic">
+    </div>
+
+ </div>  
+  
+
+
+<div class="footer">
+© 2016 书洞, all rights reserved
+</div>
+
+</body>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({
+    container: 'body'
+  });
+});
+
+// 可以改成web socket
+$(document).ready(function() {
+  function haveNewMessage() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/message/have-new-message",
+      success: function(data) {
+        if (data["new"] == true) {
+          $(".fa-bell").addClass("new-message");
+        } else {
+          $(".fa-bell").removeClass("new-message");
+        }
+      }
+    });
+  }
+
+  setInterval(haveNewMessage, 5000);
+});
+</script>
+</html>

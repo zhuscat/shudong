@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>后台管理</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage1.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage2.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage3.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage4.css">
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>
+  <script type="text/javascript" src="../static/js/tooltip.js"></script>
+  <script type="text/javascript" src="../static/js/shudong.js"></script>
+</head>
+<body>
+<div class="header">
+<div class="logo"><a href="/"><img src="/static/img/logo.png" alt="logo"></a></div>
+<div class="search">
+<i class="fa fa-search"></i>
+<form action="/search">
+  <input type="text" name="wd" placeholder="书名、作者、ISBN...">
+</form>
+</div>
+
+<div class="menu">
+
+  <a class="header-menu-item" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="发布"><i class="fa fa-plus"></i></a>
+  <a class="header-menu-item" href="/message" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
+  <a class="header-menu-item" href="/profile/published/all" href="/publish-book" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/signout" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a>
+
+
+</div>
+</div>
+
+
+<div class="broadcast-box">
+  <ul class="send">
+ <li class="broadcast selected"><a href="">广播</a></li>
+ <li class="inform unselected"><a href="">通知</a></li>
+</ul>
+  <textarea class="text-frame">要发什么通知给大家...</textarea>
+  <button class="send-message-button">发送</button>
+</div>
+
+<div id="book-item" class="manage-item">
+  <img id="black-book-picture" src="../static/img/black-book.png"></img>
+  <p class="item-name">书</p>
+  <p class="item-quantity"><span>66</span>本</p>
+</div>
+
+ <div id="user-item" class="manage-item">
+  <img id="black-head-picture" src="../static/img/black-head-picture.png"></img>
+  <p class="item-name">用户</p>
+  <p class="item-quantity"><span>16</span>个</p>
+</div>
+ 
+<div id="blue-book-item" class="manage-item">
+  <img id="blue-book-picture" src="../static/img/blue-book.png"></img>
+  <p class="item-name">书</p>
+  <p class="item-quantity"><span>66</span>本</p>
+</div>
+
+<div id="yellow-user-item" class="manage-item">
+  <img id="yellow-head-picture" src="../static/img/yellow-head-picture.png"></img>
+  <p class="item-name">用户</p>
+  <p class="item-quantity"><span>16</span>个</p>
+</div>
+
+<div id="black-comment-item" class="manage-item">
+  <img id="black-message-frame" src="../static/img/black-message-frame.png"></img>
+  <p class="item-name">评论</p>
+  <p class="item-quantity"><span>233</span>条</p>
+</div>
+
+<div id="black-message-item" class="manage-item">
+  <img id="black-eye" src="../static/img/black-eye.png"></img>
+  <p class="item-name">可能的敏感信息</p>
+  <p class="item-quantity"><span>2</span>条</p>
+</div>
+
+<div id="green-comment-item" class="manage-item">
+  <img id="green-message-frame" src="../static/img/green-message-frame.png"></img>
+  <p class="item-name">用户</p>
+  <p class="item-quantity"><span>233</span>条</p>
+</div>
+
+<div id="red-message-item" class="manage-item">
+  <img id="red-eye" src="../static/img/red-eye.png"></img>
+  <p class="item-name">可能的敏感信息</p>
+  <p class="item-quantity"><span>2</span>条</p>
+</div>
+
+<div class="broadcast-box with-username" id="under-box">
+  <ul class="send">
+ <li class="broadcast unselected"><a href="">广播</a></li>
+ <li class="inform selected"><a href="">通知</a></li>
+</ul>
+<input type="text" placeholder="输入用户名" id="input-username">
+  <textarea class="text-frame">要发什么通知给大家...</textarea>
+  <button class="send-message-button">发送</button>
+</div>
+
+
+<div class="footer">
+© 2016 书洞, all rights reserved
+</div>
+
+</body>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({
+    container: 'body'
+  });
+});
+
+// 可以改成web socket
+$(document).ready(function() {
+  function haveNewMessage() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/message/have-new-message",
+      success: function(data) {
+        if (data["new"] == true) {
+          $(".fa-bell").addClass("new-message");
+        } else {
+          $(".fa-bell").removeClass("new-message");
+        }
+      }
+    });
+  }
+
+  setInterval(haveNewMessage, 5000);
+});
+</script>
+</html>

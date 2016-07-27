@@ -1,0 +1,232 @@
+.footer{
+	position: relative;
+    bottom: 800px;
+}
+
+.long-search-bar{
+	list-style-type: none;
+  margin: 0px;
+  background:#fafafa;
+  border:1px solid #dedada;
+  width:613px;
+  height:42px;
+  position: relative;
+  left: 131px;
+  top: 40px;
+  box-shadow:0px 1px 2px 0px rgba(0,0,0,0.20);
+}
+.long-search-bar li{
+  height:42px;
+  border-right:1px solid #dedada;
+}
+.long-search-bar a{
+  vertical-align: center;
+  padding: 0px 16px 0px 16px;
+  font-family:"微软雅黑";
+  font-size:12px;
+  line-height:17px;
+  position: relative;
+  top: 11px;
+}
+.menu-area-item-selected a{
+  color:#4a4a4a;
+  position: relative;
+}
+.menu-area-item-selected{
+  background-color: #ffffff;
+}
+.menu-area-item a{
+  color:#9b9b9b;
+
+}
+.menu-area-item:hover{
+  color:#4a4a4a;
+  background:#ffffff;
+}
+.menu-area-item a:hover{
+  color:#4a4a4a;
+
+}
+.search_book>i::before{
+	font-size: 12px;
+	line-height: 25px;
+  color:#4a4a4a ;
+  position: relative;
+  top: 10px;
+  right: 5px;
+}
+.search_book>input{
+	font-family:"微软雅黑";
+  font-size:12px;
+  color:#aca9ac;
+  line-height:17px;
+  text-align:left;
+  width: 86px;
+  height: 17px;
+  background-color: #fafafa;
+  border: none;
+  position: relative;
+  top: 9.5px;
+  left: 10px;
+}
+.search_book{
+ 
+  text-align:center;
+	float: right;
+	width: 142px;
+	height: 43px;
+  border:none;
+	border-left: 1px solid #dedada;
+  text-align: center;
+  position: relative;
+  left: 250px;
+
+}
+.long-search-bar li{
+  display: inline;
+  float: left;
+}
+.broadcast-box{
+background:#ffffff;
+border:1px solid #dedada;
+box-shadow:0px 1px 2px 0px rgba(0,0,0,0.20);
+width:292px;
+height:299px;
+position: relative;
+left: 775px;
+bottom: 4px;
+}
+.send li{
+	width: 147px;
+	height: 40px;
+}
+.send a{
+	display: block;
+font-family:"微软亚黑";
+font-size:14px;
+line-height:20px;
+padding: 10px 60px 10px 50px;
+}
+.selected a{
+  color:#4a4a4a;
+}
+.selected{
+  background: #ffffff;
+}
+.inform{
+	position: relative;
+	bottom: 40px;
+	left: 145px;
+
+}
+.unselected{
+  background: #fafafa;
+}
+.unselected a{
+  color:#9b9b9b;
+}
+.text-frame{
+	background:#ffffff;
+border:1px solid #cccccc;
+border-radius:4px;
+width:260px;
+height:171px;
+position: relative;
+left: 12px;
+bottom: 16px;
+}
+.send-message-button{
+	background:#5cb85c;
+border:1px solid #5cb85c;
+border-radius:4px;
+width:85px;
+height:37px;
+position: relative;
+left: 191px;
+bottom:7px;
+font-family:"微软雅黑";
+font-size:16px;
+color:#ffffff;
+line-height:21px;
+}
+.user-box{
+background:#ffffff;
+border:1px solid #dedada;
+box-shadow:0px 1px 2px 0px rgba(0,0,0,0.20);
+width:128px;
+height:230px;
+}
+.user-box-notban1{
+position: relative;
+left: 131px;
+bottom:232px;	
+}
+.head-picture{
+	width: 64px;
+	height: 64px;
+	padding-top: 16px;
+	padding-left: 36px;
+}
+.user-name{
+	position: relative;
+	padding-left: 41px;
+	
+	font-family:PingFangSC-Regular;
+font-size:16px;
+color:#4a4a4a;
+line-height:22px;
+}
+.search-information-button,.ban-button{
+	background:#5ab6f3;
+border:1px solid #5ab6f3;
+border-radius:4px;
+width:85px;
+height:37px;
+font-family:"微软雅黑";
+font-size:16px;
+color:#ffffff;
+line-height:21px;
+position: relative;
+left: 22px;
+}
+.ban-button{
+	background:#d9534f;
+border:1px solid #d9534f;
+position: relative;
+top:12px;
+
+}
+.not-ban-button{
+background:#5cb85c;
+border:1px solid #5cb85c;
+border-radius:4px;
+width:85px;
+height:37px;	
+position: relative;
+top:12px;
+left: 22px;
+font-family:"微软雅黑";
+font-size:16px;
+color:#ffffff;
+line-height:21px;
+}
+#user-box-ban2{
+	position: relative;
+	left: 291px;
+	bottom:464px;
+}
+#user-box-notban3{
+	position: relative;
+	left:453px;
+	bottom: 696px;
+}
+#user-box-notban4{
+	position: relative;
+	left:616px;
+	bottom: 928px;
+}
+#user-box-notban5{
+	position: relative;
+	left:131px;
+	bottom: 896px;
+}

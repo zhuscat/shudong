@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>管理用户</title>
+  <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/manage1.css">
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>
+  <script type="text/javascript" src="../static/js/tooltip.js"></script>
+  <script type="text/javascript" src="../static/js/shudong.js"></script>
+</head>
+<body>
+<div class="header">
+<div class="logo"><a href="/"><img src="/static/img/logo.png" alt="logo"></a></div>
+<div class="search">
+<i class="fa fa-search"></i>
+<form action="/search">
+  <input type="text" name="wd" placeholder="书名、作者、ISBN...">
+</form>
+</div>
+
+<div class="menu">
+
+  <a class="header-menu-item" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="发布"><i class="fa fa-plus"></i></a>
+  <a class="header-menu-item" href="/message" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
+  <a class="header-menu-item" href="/profile/published/all" href="/publish-book" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/signout" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a>
+
+
+</div>
+</div>
+
+<ul class="long-search-bar">
+    <li class="menu-area-item-selected"><a href="/profile/published/all">所有</a></li>
+    <li class="menu-area-item"><a href="/profile/sale/all">未禁言的</a></li>
+    <li class="menu-area-item"><a href="/profile/buy/all">已禁言的</a></li>
+    <li class="search_book">
+    <i class="fa fa-search"></i><input type="text" placeholder="搜索用户"/>
+    </li> 
+</ul>
+
+<div class="broadcast-box">
+  <ul class="send">
+ <li class="broadcast selected"><a href="">广播</a></li>
+ <li class="inform unselected"><a href="">通知</a></li>
+</ul>
+  <textarea class="text-frame">要发什么通知给大家...</textarea>
+  <button class="send-message-button">发送</button>
+</div>
+
+<div class="user-box user-box-notban1">
+<img src="../static/img/head.png" class="head-picture"></img>
+<p class="user-name">用户名</p>
+<button class="search-information-button">查看资料</button>
+<button class="ban-button">禁言</button>
+</div>
+
+<div class="user-box " id="user-box-ban2">
+<img src="../static/img/head.png" class="head-picture"></img>
+<p class="user-name">用户名</p>
+<button class="search-information-button">查看资料</button>
+<button class="not-ban-button">解除禁言</button>
+</div>
+
+<div class="user-box" id="user-box-notban3">
+<img src="../static/img/head.png" class="head-picture"></img>
+<p class="user-name">用户名</p>
+<button class="search-information-button">查看资料</button>
+<button class="ban-button">禁言</button>
+</div>
+
+<div class="user-box" id="user-box-notban4">
+<img src="../static/img/head.png" class="head-picture"></img>
+<p class="user-name">用户名</p>
+<button class="search-information-button">查看资料</button>
+<button class="ban-button">禁言</button>
+</div>
+
+<div class="user-box" id="user-box-notban5">
+<img src="../static/img/head.png" class="head-picture"></img>
+<p class="user-name">用户名</p>
+<button class="search-information-button">查看资料</button>
+<button class="ban-button">禁言</button>
+</div>
+
+<div class="footer">
+© 2016 书洞, all rights reserved
+</div>
+
+</body>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({
+    container: 'body'
+  });
+});
+
+// 可以改成web socket
+$(document).ready(function() {
+  function haveNewMessage() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/message/have-new-message",
+      success: function(data) {
+        if (data["new"] == true) {
+          $(".fa-bell").addClass("new-message");
+        } else {
+          $(".fa-bell").removeClass("new-message");
+        }
+      }
+    });
+  }
+
+  setInterval(haveNewMessage, 5000);
+});
+</script>
+</html>

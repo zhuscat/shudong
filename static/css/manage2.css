@@ -1,0 +1,114 @@
+.search_comment>i::before{
+	font-size: 12px;
+	line-height: 25px;
+  color:#4a4a4a ;
+  position: relative;
+  top: 10px;
+  right: 245px;
+}
+.search_comment>input{
+	font-family:"微软雅黑";
+  font-size:12px;
+  color:#aca9ac;
+  line-height:17px;
+  text-align:left;
+  width: 86px;
+  height: 17px;
+  background-color: #fafafa;
+  border: none;
+  position: relative;
+  top: 9.5px;
+  right: 230px;
+}
+.search_comment{
+	float: right;
+	width: 613px;
+	height: 43px;
+  border:none;
+  text-align: center;
+  position: relative;
+}
+.comment-head-picture{
+  width: 36px;
+  height: 36px;
+  position: relative;
+  padding-left: 16px;
+  padding-top: 16px;
+}
+.comment-user-name{
+  font-family:"微软雅黑";
+font-size:12px;
+color:#5ab6f3;
+line-height:17px;
+padding-top: 16px;
+padding-left: 64px;
+position: relative;
+bottom: 67px;
+}
+.comment-message{
+  font-family:"微软雅黑";
+font-size:12px;
+color:#4a4a4a;
+line-height:17px;
+padding-left: 64px;
+padding-top: 35px;
+position: relative;
+bottom: 110px;
+}
+.time{
+  font-family:"微软雅黑";
+font-size:12px;
+color:#9b9b9b;
+line-height:17px;
+padding-left: 443px;
+padding-top: 16px;
+position: relative;
+
+bottom: 172px;
+}
+.delete-comment-button{
+  background:#d9534f;
+border:1px solid #d9534f;
+border-radius:4px;
+width:64px;
+height:28px;
+font-family:"微软雅黑";
+font-size:12px;
+color:#ffffff;
+line-height:17px;
+position: relative;
+left: 517px;
+bottom: 202px;
+}
+.divided-line{
+  border:none;
+  border-left:2px dashed #e6e6e6;
+  width:1px;
+  height:43px;
+  position: relative;
+  bottom: 245px;
+  left: 185px;
+ }
+.comment-box{
+background:#ffffff;
+border:1px solid #dedada;
+width:613px;
+height:67px;
+
+}
+#box1{
+  position: relative;
+left: 131px;
+bottom: 232px;
+}
+#box2{
+  position: relative;
+left: 131px;
+bottom: 200px;
+}
+#box3{
+  position: relative;
+left: 131px;
+bottom: 168px;
+}
+
