@@ -82,7 +82,7 @@ func (self *UserController) Signup() {
 			self.alert("数据库存储出现错误")
 		}
 	}
-	self.TplName = "signup.tpl"
+	self.TplName = "signup.html"
 }
 
 // Signout 登出
@@ -182,7 +182,7 @@ func (self *UserController) ForgetPassword() {
 // 未测试过是否有用
 // 不知道在不存在的用户的时候会不会发生 err
 // TODO: new api
-func (self *UserController) CheckUsernameAvailabel() {
+func (self *UserController) CheckUsernameAvailable() {
 	username := self.GetString("username")
 	out := make(map[string]interface{})
 	if len(username) < 5 || len(username) > 20 {
@@ -191,24 +191,41 @@ func (self *UserController) CheckUsernameAvailabel() {
 		self.jsonResult(out)
 		return
 	}
-	user, err := models.GetUserByUsername(username)
+	_, err := models.GetUserByUsername(username)
 	if err != nil {
-		out["success"] = false
-		out["info"] = "数据库内部出现错误"
-		self.jsonResult(out)
-		return
-	}
-	if user.Id != 0 {
 		out["success"] = true
-		out["info"] = "用户名可以使用"
+		out["info"] = "可以使用该用户名"
 		self.jsonResult(out)
 		return
 	} else {
 		out["success"] = false
-		out["info"] = "用户名已经被注册过"
+		out["info"] = "用户名已被注册"
 		self.jsonResult(out)
 		return
 	}
+}
+
+// CheckEmailAvailable 检查邮箱是否可用
+func (self *UserController) CheckEmailAvailable() {
+	email := self.GetString("email")
+	out := make(map[string]interface{})
+	if ok := utils.IsValidEmail(email); !ok {
+		out["success"] = false
+		out["info"] = "邮箱不合法"
+		self.jsonResult(out)
+		return
+	}
+	_, err := models.GetUserByEmail(email)
+	if err != nil {
+		out["success"] = false
+		out["info"] = "邮箱已经被注册过了"
+		self.jsonResult(out)
+		return
+	}
+	out["success"] = true
+	out["info"] = "可以使用该邮箱"
+	self.jsonResult(out)
+
 }
 
 // 设置用户禁言

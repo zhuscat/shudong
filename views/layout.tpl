@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="/static/css/main.css">
   <link rel="stylesheet" type="text/css" href="/static/css/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/management.css">
   <script type="text/javascript" src="/static/js/jquery-2.2.4.js"></script>
   <script type="text/javascript" src="/static/js/tooltip.js"></script>
   <script type="text/javascript" src="/static/js/shudong.js"></script>
@@ -22,8 +23,11 @@
 <div class="menu">
 {{if .Login}}
   <a class="header-menu-item" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="发布"><i class="fa fa-plus"></i></a>
-  <a class="header-menu-item" href="/message" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
-  <a class="header-menu-item" href="/profile/published/all" href="/publish-book" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/message" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
+  <a class="header-menu-item" href="/profile/published/all" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
+  {{if .IsAdmin}}
+  <a class="header-menu-item" href="/management" data-toggle="tooltip" data-placement="bottom" title="管理中心"><i class="fa fa-cog"></i></a>
+  {{end}}
   <a class="header-menu-item" href="/signout" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a>
 {{else}}
   <a class="header-menu-item" href="/signup" data-toggle="tooltip" data-placement="bottom" title="注册"><i class="fa fa-user"></i></a>
@@ -36,31 +40,4 @@
 © 2016 书洞, all rights reserved
 </div>
 </body>
-<script type="text/javascript">
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip({
-    container: 'body'
-  });
-});
-
-// 可以改成web socket
-$(document).ready(function() {
-  function haveNewMessage() {
-    $.ajax({
-      type: "GET",
-      dataType: "json",
-      url: "/message/have-new-message",
-      success: function(data) {
-        if (data["new"] == true) {
-          $(".fa-bell").addClass("new-message");
-        } else {
-          $(".fa-bell").removeClass("new-message");
-        }
-      }
-    });
-  }
-
-  setInterval(haveNewMessage, 5000);
-});
-</script>
 </html>

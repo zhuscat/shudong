@@ -21,6 +21,16 @@ func (self *CommentController) Post() {
 		self.redirect("/signin")
 	}
 
+	user, err := models.GetUser(self.userId)
+	if err != nil {
+		self.alert("用户状态有误")
+		return
+	}
+	if user.CanComment == false {
+		self.alert("您被禁言了")
+		return
+	}
+
 	bookId, err := self.GetInt64("bookid")
 	if err != nil {
 		self.alert("书籍参数错误")

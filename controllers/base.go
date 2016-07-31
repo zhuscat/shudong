@@ -28,8 +28,10 @@ func (self *BaseController) Prepare() {
 	self.user, _ = models.GetUser(userid)
 	if len(username) > 0 {
 		self.Data["Login"] = true
+		self.Data["IsAdmin"] = self.user.IsAdmin
 	} else {
 		self.Data["Login"] = false
+		self.Data["IsAdmin"] = false
 	}
 	if app, ok := self.AppController.(NestPreparer); ok {
 		app.NestPrepare()

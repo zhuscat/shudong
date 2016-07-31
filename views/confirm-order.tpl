@@ -1,13 +1,3 @@
-<!-- <html>
-    <body>
-        <h1>order</h1>
-        <form method="post">
-            address:<input type="text" name="address"><br>
-            <input type="submit" value="提交">
-        </form>
-    </body>
-</html> -->
-
 <!DOCTYPE html>
 <html>
 <head>

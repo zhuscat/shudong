@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>重置密码</title>
-	<link rel="stylesheet" type="text/css" href="static/css/font-awesome.css">
-	<link rel="stylesheet" type="text/css" href="static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link ref="stylesheet" type="text/css" href="/static/css/main.css">
 </head>
 <body id="reset-password">
 <h1 class="shudong-header1 text-align-center">

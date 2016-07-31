@@ -62,6 +62,16 @@ func GetUserByUsername(name string) (*User, error) {
 	}
 }
 
+// GetUserByEmail 输入邮箱，获取 User
+func GetUserByEmail(email string) (*User, error) {
+	user := User{Email: email}
+	err := orm.NewOrm().Read(&user, "Email")
+	if err == nil {
+		return &user, nil
+	}
+	return nil, err
+}
+
 // 创建一个用户
 func AddUser(name string, email string, pwd string) (int64, error) {
 	o := orm.NewOrm()

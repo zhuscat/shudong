@@ -13,19 +13,31 @@ $(function () {
         if (account.length > 0 && account.length < 5) {
             $("#name-message").css("display", "block");
             document.getElementById("name-message").innerHTML = "*用户名小于5个字符";
-        }
-        if (account.length > 20) {
+        } else if (account.length > 20) {
             $("#name-message").css("display", "block");
             document.getElementById("name-message").innerHTML = "*用户名超过20个字符";
-        }
-        if (account.length == 0) {
+        } else if (account.length == 0) {
             $("#name-message").css("display", "block");
             document.getElementById("name-message").innerHTML = "*用户名不能为空";
-        }
-        if (account.length >= 5 && account.length <= 20) {
-            $("#name-message").css("display", "none");
-            document.getElementById("name-message").innerHTML = "";
-            account_flag = true;
+        } else if (account.length >= 5 && account.length <= 20) {
+            $.ajax({
+                url: '/user/check-username',
+                type: 'POST',
+                data: {
+                    username: account
+                },
+                dataType: 'json'
+            })
+            .done(function(data) {
+                if (data['success']) {
+                    $("#name-message").css("display", "none");
+                    document.getElementById("name-message").innerHTML = "";
+                    account_flag = true;
+                } else {
+                    $("#name-message").css("display", "block");
+                    document.getElementById("name-message").innerHTML = "*用户名已经被注册";
+                }
+            });
         }
     });
     /*-------------------------------------------------邮 箱 检 测 部 分--------------------------------------------------*/
@@ -37,14 +49,34 @@ $(function () {
         email_flag = false;
         var pattern = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/;
         var eamil = document.getElementById("email-input").value;
-        if (!pattern.test(eamil)) {
+        if (eamil.length == 0) {
+            $("#email-message").css("display", "block");
+            document.getElementById("email-message").innerHTML = "*邮箱不能为空";
+            email_flag = false;
+        } else if (!pattern.test(eamil)) {
             $("#email-message").css("display", "block");
             document.getElementById("email-message").innerHTML = "*邮箱不符合要求";
+            email_flag = false
         } else {
-            email_flag = true;
-        }
-        if (email.length == 0) {
-            document.getElementById("email-message").innerHTML = "*邮箱不能为空";
+            $.ajax({
+                url: '/user/check-email',
+                type: 'POST',
+                data: {
+                    email: eamil
+                },
+                dataType: 'json'
+            })
+            .done(function(data) {
+                if (data['success'] === true) {
+                    $("#email-message").css("display", "none");
+                    document.getElementById("name-message").innerHTML = "";
+                    email_flag = true;
+                } else {
+                    $("#name-message").css("display", "block");
+                    document.getElementById("name-message").innerHTML = "*用户名已经被注册";
+                    email_flag = false
+                }
+            });
         }
     });
     /*-------------------------------------------------密 码 检 测 部 分--------------------------------------------------*/
@@ -64,6 +96,7 @@ $(function () {
             if (pwd != pwdconf) {
                 $("#pwdconf-message").css("display", "block");
                 document.getElementById("pwdconf-message").innerHTML = "*两次输入的密码不同，请重新输入";
+                pwd_flag = false
             }
             if (pwd == pwdconf && pwdconf != "") {
                 pwd_flag = true;//此时密码符合要求
@@ -72,10 +105,12 @@ $(function () {
         if (pwd.length < 6) {
             $("#pwdconf-message").css("display", "none");
             document.getElementById("pwdconf-message").innerHTML = "";
+            pwd_flag = false
         }
         if (pwd.length > 20) {
             $("#pwdconf-message").css("display", "none");
             document.getElementById("pwdconf-message").innerHTML = "";
+            pwd_flag = false
         }
     });
 
@@ -97,27 +132,26 @@ $(function () {
             document.getElementById("pwd-message").innerHTML = "*密码不能为空";
         }
     });
-
-    $("#signup-submit").click(function () {
-        if (account_flag && pwd_flag && email_flag) {
-            var data = {
-                username: $("#name-input").val(),
-                email: $("#email-input").val(),
-                password: $("#pwd-input").val()
-            };
-            $.ajax({
-                type: "post",
-                data: data,
-                url: "../static/data/signup.json",
-                dataType: "json",
-                success: function (data) {
-                    if (data.success) {
-                        alert("注册成功");
-                    }
-                }
-            });
-        }
-        return false;
-    });
-
+    //
+    // $("#signup-submit").click(function () {
+    //     if (account_flag && pwd_flag && email_flag) {
+    //         var data = {
+    //             username: $("#name-input").val(),
+    //             email: $("#email-input").val(),
+    //             password: $("#pwd-input").val()
+    //         };
+    //         $.ajax({
+    //             type: "post",
+    //             data: data,
+    //             url: "../static/data/signup.json",
+    //             dataType: "json",
+    //             success: function (data) {
+    //                 if (data.success) {
+    //                     alert("注册成功");
+    //                 }
+    //             }
+    //         });
+    //     }
+    //     return false;
+    // });
 })

@@ -19,6 +19,7 @@ func (mc *ManagementController) ShowManagementHome() {
 	mc.Data["BookCount"] = bookCount
 	mc.Data["commentCount"] = commentCount
 	mc.Data["UserCount"] = userCount
+	mc.Layout = "layout.tpl"
 	mc.TplName = "management-home.html"
 }
 
@@ -69,6 +70,7 @@ func (mc *ManagementController) ManageBooks() {
 			mc.Data["Page"] = utils.NewPaginator(mc.Ctx.Request, pageLimit, count)
 		}
 	}
+	mc.Layout = "layout.tpl"
 	mc.TplName = "book-management2.html"
 }
 
@@ -84,6 +86,7 @@ func (mc *ManagementController) ManageComments() {
 	comments, count := models.CommentGetList(page, pageLimit, keyword, []interface{}{})
 	mc.Data["Comments"] = comments
 	mc.Data["Page"] = utils.NewPaginator(mc.Ctx.Request, pageLimit, count)
+	mc.Layout = "layout.tpl"
 	mc.TplName = "comments-management2.html"
 }
 
@@ -136,6 +139,7 @@ func (mc *ManagementController) ManageUsers() {
 		mc.Data["Users"] = users
 	}
 	mc.Data["Page"] = utils.NewPaginator(mc.Ctx.Request, pageLimit, count)
+	mc.Layout = "layout.tpl"
 	mc.TplName = "user-management2.html"
 }
 

@@ -45,6 +45,10 @@ func userRouter() {
 	beego.Router("/upload-avatar", &controllers.ProfileController{}, "post:UploadAvatar")
 	// 用户查看个人信息（用户本人）
 	beego.Router("/profile/:tab/:subtab", &controllers.ProfileController{}, "get:ShowProfile")
+	// ajax 检查用户名
+	beego.Router("/user/check-username", &controllers.UserController{}, "post:CheckUsernameAvailable")
+	// ajx 检查邮箱
+	beego.Router("/user/check-email", &controllers.UserController{}, "post:CheckEmailAvailable")
 }
 
 func bookRouter() {

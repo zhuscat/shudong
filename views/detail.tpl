@@ -109,38 +109,3 @@
 	<a class="report" href="/">给我们反馈</a>
 </div>
 </div>
-<script type="text/javascript">
-	// $("#content").focusin(function() {
-	// 	$('#comment-form>input[type="submit"]').css("display", "block")
-	// });
-	// $("#content").focusout(function() {
-	// 	$('#comment-form>input[type="submit"]').css("display", "none")
-	// });
-	$(".tab-menu>li").click(function() {
-		$(".tab-menu>li").toggleClass("item-selected");
-		$(".tab-menu>li").each(function() {
-			var item = $(this).data("item");
-			$(item).css("display", "none");
-		});
-		var thisItem = $(this).data("item");
-		$(thisItem).css("display", "block");
-	});
-
-	$(".comment-page a").click(function(e) {
-		// 获取链接里面的参数
-		var href = $(this).attr("href");
-		var re = /\/book\/detail\/(\d+)\?p=(\d+)/gi;
-		var matches = re.exec(href);
-		var getUrl = "/comment/get/" + matches[1] + "?p=" + matches[2];
-		$(".comment-page a").parent().removeClass("active");
-		$(this).parent().addClass("active");
-		$.ajax({
-			url: getUrl,
-			type: "GET", 
-			success: function(data) {
-				$("#comment-display").html(data);
-			}
-		});
-		e.preventDefault();
-	});
-</script>
