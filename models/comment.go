@@ -82,3 +82,33 @@ func GetComments(pid int64, limit int, offset int) ([]*Comment, error) {
 func GetCommentCount(pid int64) (int64, error) {
 	return orm.NewOrm().QueryTable("comment").Filter("BookId", pid).Count()
 }
+
+// CommentGetList 根据过滤条件获取评论
+func CommentGetList(page int, pageSize int, content string, filters ...interface{}) ([]*Comment, int64) {
+	offset := (page - 1) * pageSize
+	var comments []*Comment
+	query := orm.NewOrm().QueryTable("comment")
+	if content != "" {
+		query = query.Filter("content__contains", content)
+	}
+	if len(filters) >= 2 && len(filters)%2 == 0 {
+		l := len(filters)
+		for i := 0; i < l; i += 2 {
+			query = query.Filter(filters[i].(string), filters[i+1])
+		}
+	}
+	total, _ := query.Count()
+	query.OrderBy("-CreatedTime").Limit(pageSize, offset).All(&comments)
+	return comments, total
+}
+
+// CommentDelete 删除一条评论
+func CommentDelete(id int64) (int64, error) {
+	comment := &Comment{Id: id}
+	return orm.NewOrm().Delete(comment)
+}
+
+// TotalComment 获取评论总数
+func TotalComment() (int64, error) {
+	return orm.NewOrm().QueryTable("comment").Count()
+}

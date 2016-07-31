@@ -182,6 +182,42 @@ func (self *BookController) EditBook() {
 	self.TplName = "edit-book.tpl"
 }
 
+// DeleteBook 删除一本图书
+// url: /book/delete/:bookid
+func (bc *BookController) DeleteBook() {
+	if !bc.auth() {
+		next := bc.Ctx.Request.URL.String()
+		url := "/signin?next=" + next
+		bc.redirect(url)
+	}
+	bookid, err := bc.GetInt64("id")
+	if err != nil {
+		out := make(map[string]interface{})
+		out["success"] = false
+		out["msg"] = "书籍参数错误"
+		bc.jsonResult(out)
+	}
+	book, err := bc.validateOwnerAndGetBook(bookid)
+	if err != nil {
+		out := make(map[string]interface{})
+		out["success"] = false
+		out["msg"] = "验证失败或书籍不存在"
+		bc.jsonResult(out)
+	}
+	_, err = models.BookDelete(book)
+	if err != nil {
+		out := make(map[string]interface{})
+		out["success"] = false
+		out["msg"] = "操作失败"
+		bc.jsonResult(out)
+	} else {
+		out := make(map[string]interface{})
+		out["success"] = true
+		out["msg"] = "操作成功"
+		bc.jsonResult(out)
+	}
+}
+
 // url: /book/change/:bookid
 func (self *BookController) ChangeBook() {
 	if !self.auth() {

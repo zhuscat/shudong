@@ -454,8 +454,8 @@ a.radius-button-middle {
 }
 
 #forget-password {
-	display: block; 
-	float: right; 
+	display: block;
+	float: right;
 	margin-top: 16px;
 }
 
@@ -509,11 +509,13 @@ a.radius-button-middle {
 	border: none;
 	margin-right: 16px;
 	margin-left: 16px;
+	line-height: 44px;
 	background-color: #fafafa;
 }
 
 .top-menu-bar .search-item i {
 	margin-left: 16px;
+	color: #4a4a4a;
 }
 
 /** 发布书的管理样式 **/
@@ -984,7 +986,7 @@ a.radius-button-middle {
 }
 
 .detail-book-card .detail-book-card-bottom .comment .comment-div .horizontal-sep {
-	border-bottom: 1px dashed #e6e6e6; 
+	border-bottom: 1px dashed #e6e6e6;
 	clear: both;
 }
 

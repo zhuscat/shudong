@@ -19,11 +19,11 @@ $(function () {
         if(username==""||password==""){
             if(username==""){
                 $("#name-message").css("display", "block");
-                document.getElementById("name-message").innerHTML = "!用户名不能为空";
+                document.getElementById("name-message").innerHTML = "*用户名不能为空";
             }
             if(password==""){
                 $("#pwd-message").css("display", "block");
-                document.getElementById("pwd-message").innerHTML = "!密码不能为空";
+                document.getElementById("pwd-message").innerHTML = "*密码不能为空";
             }
         }
         if (username!==""&&password!=="") {

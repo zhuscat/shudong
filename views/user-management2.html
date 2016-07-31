@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>主页</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/management.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/tooltip.css">
+  <script type="text/javascript" src="/static/js/jquery-2.2.4.js"></script>
+  <script type="text/javascript" src="/static/js/tooltip.js"></script>
+  <script type="text/javascript" src="/static/js/shudong.js"></script>
+</head>
+<body>
+<div class="header">
+<div class="logo"><a href="/"><img src="/static/img/logo.png" alt="logo"></a></div>
+<div class="search">
+<i class="fa fa-search"></i>
+<form action="/search">
+  <input type="text" name="wd" placeholder="书名、作者、ISBN...">
+</form>
+</div>
+<div class="menu">
+{{if .Login}}
+  <a class="header-menu-item" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="发布"><i class="fa fa-plus"></i></a>
+  <a class="header-menu-item" href="/message" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
+  <a class="header-menu-item" href="/profile/published/all" href="/publish-book" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/signout" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a>
+{{else}}
+  <a class="header-menu-item" href="/signup" data-toggle="tooltip" data-placement="bottom" title="注册"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/signin" data-toggle="tooltip" data-placement="bottom" title="登录"><i class="fa fa-sign-in"></i></a>
+{{end}}
+</div>
+</div>
+<div id="book-management" class="container">
+    <div class="left-area-wrapper">
+        <ul class="top-menu-bar" style="margin-left: 4px;">
+            <li class="bar-item"><a href="/management/users">所有</a></li>
+    		<li class="bar-item"><a href="/management/users/normal">未禁言的</a></li>
+    		<li class="bar-item"><a href="/management/users/ban">已禁言的</a></li>
+            <li class="search-item"><i class="fa fa-search"></i><input type="text" name="search" placeholder="搜索"></li>
+        </ul>
+        {{range .Users}}
+        <div class="manage-user-div">
+            <div class="manage-user-avatar" style="background-image:url(/static/www/avatar/{{.Avatar}})">
+            </div>
+            <h2>{{.Name}}</h2>
+            <a href="#" class="radius-button radius-button-small">查看资料</a>
+            {{if eq .CanComment true}}
+            <a href="/management/users/ban" class="radius-button radius-button-small radius-button-warning change-can-comment-btn" data-id="{{.Id}}">禁言</a>
+            {{else}}
+            <a href="/management/users/ban" class="radius-button radius-button-small radius-button-green change-can-comment-btn" data-id="{{.Id}}">解除禁言</a>
+            {{end}}
+        </div>
+        {{end}}
+        {{if gt .Page.PageNums 1}}
+        <ul class="page">
+        	{{if .Page.HasPrev}}
+        		<li><a href="{{.Page.PageLinkFirst}}">第一页</a></li>
+        		<li><a href="{{.Page.PageLinkPrev}}">&lt;</a></li>
+        	{{else}}
+        		<li class="disabled"><a>第一页</a></li>
+        		<li class="disabled"><a>&lt;</a></li>
+        	{{end}}
+        	{{range $index, $page := .Page.Pages}}
+        		<li {{if $.Page.IsActive .}}class="active"{{end}}>
+        			<a href="{{$.Page.PageLink $page}}">{{$page}}</a>
+        		</li>
+        	{{end}}
+        	{{if .Page.HasNext}}
+                <li><a href="{{.Page.PageLinkNext}}">&gt;</a></li>
+                <li><a href="{{.Page.PageLinkLast}}">最后一页</a></li>
+            {{else}}
+                <li class="disabled"><a>&gt;</a></li>
+                <li class="disabled"><a>最后一页</a></li>
+            {{end}}
+        </ul>
+        {{end}}
+    </div>
+    <div class="right-area-wrapper">
+        <div class="send-message-box">
+            <div class="trigger-menu">
+                <div id="broadcast-button" class="trigger-menu-item trigger-menu-item-active">
+                    广播
+                </div>
+                <div id="notification-button" class="trigger-menu-item">
+                    通知
+                </div>
+            </div>
+            <div class="send-message-box-content">
+                <div id="broadcast">
+                    <textarea>要发什么通知给大家......</textarea>
+                    <button type="button" class="radius-button radius-button-green">发送</button>
+                </div>
+                <div id="notification">
+                    <input type="text" name="to-username" class="shudong-input-send" placeholder="输入用户名">
+                    <textarea>要发什么通知给TA......</textarea>
+                    <button type="button" class="radius-button radius-button-green">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+© 2016 书洞, all rights reserved
+</div>
+</body>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({
+    container: 'body'
+  });
+});
+
+// 可以改成web socket
+$(document).ready(function() {
+  function haveNewMessage() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/message/have-new-message",
+      success: function(data) {
+        if (data["new"] == true) {
+          $(".fa-bell").addClass("new-message");
+        } else {
+          $(".fa-bell").removeClass("new-message");
+        }
+      }
+    });
+  }
+
+  setInterval(haveNewMessage, 5000);
+});
+</script>
+</html>

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/url"
 	"shudong/models"
 	"shudong/utils"
@@ -152,11 +153,13 @@ func (self *UserController) ResetPassword() {
 		}
 	}
 	user, _ := models.GetUserByUsername(username)
-	if user != nil && user.ResetToken == resettoken && user.ResetExpiredDate.Unix() < time.Now().Unix() {
+	if user != nil && user.ResetToken == resettoken && user.ResetExpiredDate.Unix() > time.Now().Unix() {
 		self.TplName = "reset_password.tpl"
 	} else {
 		self.Ctx.Output.Body([]byte("invalid"))
+		fmt.Println(user.ResetExpiredDate.Unix(), time.Now().Unix())
 		self.StopRun()
+		return
 	}
 }
 

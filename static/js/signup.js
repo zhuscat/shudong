@@ -12,15 +12,15 @@ $(function () {
         var account = document.getElementById("name-input").value;
         if (account.length > 0 && account.length < 5) {
             $("#name-message").css("display", "block");
-            document.getElementById("name-message").innerHTML = "!用户名小于5个字符";
+            document.getElementById("name-message").innerHTML = "*用户名小于5个字符";
         }
         if (account.length > 20) {
             $("#name-message").css("display", "block");
-            document.getElementById("name-message").innerHTML = "!用户名超过20个字符";
+            document.getElementById("name-message").innerHTML = "*用户名超过20个字符";
         }
         if (account.length == 0) {
             $("#name-message").css("display", "block");
-            document.getElementById("name-message").innerHTML = "!用户名不能为空";
+            document.getElementById("name-message").innerHTML = "*用户名不能为空";
         }
         if (account.length >= 5 && account.length <= 20) {
             $("#name-message").css("display", "none");
@@ -39,12 +39,12 @@ $(function () {
         var eamil = document.getElementById("email-input").value;
         if (!pattern.test(eamil)) {
             $("#email-message").css("display", "block");
-            document.getElementById("email-message").innerHTML = "!邮箱不符合要求";
+            document.getElementById("email-message").innerHTML = "*邮箱不符合要求";
         } else {
             email_flag = true;
         }
         if (email.length == 0) {
-            document.getElementById("email-message").innerHTML = "!邮箱不能为空";
+            document.getElementById("email-message").innerHTML = "*邮箱不能为空";
         }
     });
     /*-------------------------------------------------密 码 检 测 部 分--------------------------------------------------*/
@@ -63,7 +63,7 @@ $(function () {
         if (pwd.length >= 6 && pwd.length <= 20) {
             if (pwd != pwdconf) {
                 $("#pwdconf-message").css("display", "block");
-                document.getElementById("pwdconf-message").innerHTML = "!两次输入的密码不同，请重新输入";
+                document.getElementById("pwdconf-message").innerHTML = "*两次输入的密码不同，请重新输入";
             }
             if (pwd == pwdconf && pwdconf != "") {
                 pwd_flag = true;//此时密码符合要求
@@ -84,17 +84,17 @@ $(function () {
         var pwdconf = document.getElementById('pwdconf-input').value;
         if (pwd.length > 0 && pwd.length < 6) {
             $("#pwd-message").css("display", "block");
-            document.getElementById("pwd-message").innerHTML = "!密码小于6个字符，请重新输入";
+            document.getElementById("pwd-message").innerHTML = "*密码小于6个字符，请重新输入";
         }
         if (pwd.length > 20) {
             $("#pwd-message").css("display", "block");
-            document.getElementById("pwd-message").innerHTML = "!密码大于20个字符，请重新输入";
+            document.getElementById("pwd-message").innerHTML = "*密码大于20个字符，请重新输入";
         }
         if (pwd.length >= 6 && pwd.length <= 20) {
         }
         if (pwd == "") {
             $("#pwd-message").css("display", "block");
-            document.getElementById("pwd-message").innerHTML = "!密码不能为空";
+            document.getElementById("pwd-message").innerHTML = "*密码不能为空";
         }
     });
 

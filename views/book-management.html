@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>书籍管理</title>
-  <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/tooltip.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/user-management.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/comment-management.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/book-management.css">
-  <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>
-  <script type="text/javascript" src="../static/js/tooltip.js"></script>
-  <script type="text/javascript" src="../static/js/shudong.js"></script>
-  <script type="text/javascript" src="../static/js/back-stage-management.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/user-management.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/comment-management.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/book-management.css">
+  <script type="text/javascript" src="/static/js/jquery-2.2.4.js"></script>
+  <script type="text/javascript" src="/static/js/tooltip.js"></script>
+  <script type="text/javascript" src="/static/js/shudong.js"></script>
+  <script type="text/javascript" src="/static/js/back-stage-management.js"></script>
 </head>
 <body>
 <div class="header">
@@ -39,11 +39,11 @@
     <li  class="class-selected" id="all"><a href="" >所有</a></li>
     <li  class="class" id="sale"><a href="" >正在卖的</a></li>
     <li  class="class" id="old"><a href="">已下架的</a></li>
-    
+
       <li class="search_book">
       <i class="fa fa-search"></i><input type="text" placeholder="搜索发布的书籍"/>
-      </li> 
-  
+      </li>
+
 </ul>
 <div class="broadcast-box">
   <ul class="send">
@@ -55,7 +55,7 @@
 </div>
 
 <div class="information">
-  <div id="information-operation"> 
+  <div id="information-operation">
     <img src="../static/img/book.png"  class="book-picture"/>
     <ul class="book_information">
      <li ><a href="" class="book_name">欢乐颂</a></li>
@@ -65,7 +65,7 @@
      <li><p class="other_information">ISBN: 9787541142659</p></li>
      <li><p class="other_information">数量：1</p></li>
   </ul>
- 
+
     <ul class="edit">
       <li><button class="see">查看</button></li>
       <li><button class="down" onclick="undercarriage('<?php echo $book[book_id];?>')">下架</button></li>
@@ -80,8 +80,8 @@
       <img src="../static/img/head.png" id="headpic">
     </div>
 
- </div>  
-  
+ </div>
+
 
 
 <div class="footer">

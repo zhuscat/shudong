@@ -176,6 +176,7 @@ func UserGetList(page int, pageSize int, filters ...interface{}) ([]*User, int64
 	offset := (page - 1) * pageSize
 	var users []*User
 	query := orm.NewOrm().QueryTable("user")
+	fmt.Println(filters)
 	if len(filters) >= 2 && len(filters)%2 == 0 {
 		l := len(filters)
 		for i := 0; i < l; i += 2 {
@@ -183,6 +184,11 @@ func UserGetList(page int, pageSize int, filters ...interface{}) ([]*User, int64
 		}
 	}
 	total, _ := query.Count()
-	query.OrderBy("-CreatedTime").Limit(pageSize, offset).All(&users)
+	query.OrderBy("-CreatedDate").Limit(pageSize, offset).All(&users)
 	return users, total
+}
+
+// TotalUser 获取用户总数
+func TotalUser() (int64, error) {
+	return orm.NewOrm().QueryTable("user").Count()
 }

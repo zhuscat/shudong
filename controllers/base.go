@@ -1,10 +1,15 @@
 package controllers
 
 import (
+	"fmt"
 	"shudong/models"
 
 	"github.com/astaxie/beego"
 )
+
+type NestPreparer interface {
+	NestPrepare()
+}
 
 // BaseController 将会是该项目中所有其他控制器的父类
 // 该类包含了一些基础功能，如用户验证
@@ -20,10 +25,14 @@ func (self *BaseController) Prepare() {
 	userid, _ := self.GetSession("userid").(int64)
 	self.userName = username
 	self.userId = userid
+	self.user, _ = models.GetUser(userid)
 	if len(username) > 0 {
 		self.Data["Login"] = true
 	} else {
 		self.Data["Login"] = false
+	}
+	if app, ok := self.AppController.(NestPreparer); ok {
+		app.NestPrepare()
 	}
 }
 
@@ -51,6 +60,7 @@ func (self *BaseController) auth() bool {
 // 检查是不是管理员
 // TODO: new api
 func (self *BaseController) authAdmin() bool {
+	fmt.Println(self.userName)
 	if len(self.userName) > 0 && self.user.IsAdmin == true {
 		return true
 	} else {

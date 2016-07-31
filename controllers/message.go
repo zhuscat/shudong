@@ -147,6 +147,7 @@ func (self *MessageController) SendMessage() {
 	username := self.GetString("username")
 	content := self.GetString("content")
 	content = strings.TrimSpace(content)
+	out := make(map[string]interface{})
 	if len(content) == 0 {
 		out["success"] = false
 		out["info"] = "需要输入内容"

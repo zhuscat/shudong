@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>主页</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/management.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/tooltip.css">
+  <script type="text/javascript" src="/static/js/jquery-2.2.4.js"></script>
+  <script type="text/javascript" src="/static/js/tooltip.js"></script>
+  <script type="text/javascript" src="/static/js/shudong.js"></script>
+</head>
+<body>
+<div class="header">
+<div class="logo"><a href="/"><img src="/static/img/logo.png" alt="logo"></a></div>
+<div class="search">
+<i class="fa fa-search"></i>
+<form action="/search">
+  <input type="text" name="wd" placeholder="书名、作者、ISBN...">
+</form>
+</div>
+<div class="menu">
+{{if .Login}}
+  <a class="header-menu-item" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="发布"><i class="fa fa-plus"></i></a>
+  <a class="header-menu-item" href="/message" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
+  <a class="header-menu-item" href="/profile/published/all" href="/publish-book" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/signout" data-toggle="tooltip" data-placement="bottom" title="登出"><i class="fa fa-sign-out"></i></a>
+{{else}}
+  <a class="header-menu-item" href="/signup" data-toggle="tooltip" data-placement="bottom" title="注册"><i class="fa fa-user"></i></a>
+  <a class="header-menu-item" href="/signin" data-toggle="tooltip" data-placement="bottom" title="登录"><i class="fa fa-sign-in"></i></a>
+{{end}}
+</div>
+</div>
+<div class="container">
+    <div class="left-area-wrapper">
+        <div class="management-card">
+            <div class="icon book-management-icon"></div>
+            <a href="/management/books">书</a>
+            <h3><span>{{.BookCount}}</span>本</h3>
+        </div>
+        <div class="management-card">
+            <div class="icon comment-management-icon"></div>
+            <a href="/management/comments">评论</a>
+            <h3><span>{{.CommentCount}}</span>条</h3>
+        </div>
+        <div class="management-card">
+            <div class="icon head-management-icon"></div>
+            <a href="/management/users">用户</a>
+            <h3><span>{{.UserCount}}</span>个</h3>
+        </div>
+        <div class="management-card">
+            <div class="icon eye-management-icon"></div>
+            <a>可能的敏感信息</a>
+            <h3><span>66</span>本</h3>
+        </div>
+    </div>
+    <div class="right-area-wrapper">
+        <div class="send-message-box">
+            <div class="trigger-menu">
+                <div id="broadcast-button" class="trigger-menu-item trigger-menu-item-active">
+                    广播
+                </div>
+                <div id="notification-button" class="trigger-menu-item">
+                    通知
+                </div>
+            </div>
+            <div class="send-message-box-content">
+                <div id="broadcast">
+                    <textarea>要发什么通知给大家......</textarea>
+                    <button type="button" class="radius-button radius-button-green">发送</button>
+                </div>
+                <div id="notification">
+                    <input type="text" name="to-username" class="shudong-input-send" placeholder="输入用户名">
+                    <textarea>要发什么通知给TA......</textarea>
+                    <button type="button" class="radius-button radius-button-green">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+© 2016 书洞, all rights reserved
+</div>
+</body>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({
+    container: 'body'
+  });
+});
+
+// 可以改成web socket
+$(document).ready(function() {
+  function haveNewMessage() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/message/have-new-message",
+      success: function(data) {
+        if (data["new"] == true) {
+          $(".fa-bell").addClass("new-message");
+        } else {
+          $(".fa-bell").removeClass("new-message");
+        }
+      }
+    });
+  }
+
+  setInterval(haveNewMessage, 5000);
+});
+</script>
+</html>

@@ -16,6 +16,8 @@ func init() {
 	orderRouter()
 	// 与消息操作相关的路由（如站内信，私信[还没有做])
 	notificationRouter()
+	// 与后台管理相关的路由
+	managementRouter()
 }
 
 func userRouter() {
@@ -82,4 +84,23 @@ func notificationRouter() {
 	beego.Router("/message/read-all", &controllers.MessageController{}, "get:ReadAll")
 	// 查询是否有新信息
 	beego.Router("/message/have-new-message", &controllers.MessageController{}, "get:HaveNewMessage")
+}
+
+func managementRouter() {
+	// 后台管理首页
+	beego.Router("/management/", &controllers.ManagementController{}, "get:ShowManagementHome")
+	// 后台管理书籍页面
+	beego.Router("/management/books/?:filter", &controllers.ManagementController{}, "get:ManageBooks")
+	// 后台管理评论页面
+	beego.Router("/management/comments", &controllers.ManagementController{}, "get:ManageComments")
+	// 后台管理用户页面
+	beego.Router("/management/users/?:filter", &controllers.ManagementController{}, "get:ManageUsers")
+	// 发送广播
+	beego.Router("/management/broadcast", &controllers.ManagementController{}, "post:Broadcast")
+	// 发送通知给单个用户
+	beego.Router("/management/notification", &controllers.ManagementController{}, "post:SendNotification")
+	// 删除评论
+	beego.Router("/management/comments/delete", &controllers.ManagementController{}, "post:DeleteComment")
+	// 禁言或解除禁言
+	beego.Router("/management/users/ban", &controllers.ManagementController{}, "post:ManageUserCanComment")
 }

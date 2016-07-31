@@ -201,3 +201,8 @@ func BookGetList(page int, pageSize int, filters ...interface{}) ([]*Book, int64
 	query.OrderBy("-CreatedTime").Limit(pageSize, offset).All(&books)
 	return books, total
 }
+
+// BookDelete 删除一本书籍
+func BookDelete(book *Book) (int64, error) {
+	return orm.NewOrm().Delete(book)
+}
