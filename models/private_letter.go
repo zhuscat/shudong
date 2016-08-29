@@ -118,7 +118,10 @@ func GetPrivateLetters(from int64, to int64, limit int, offset int) ([]*PrivteLe
 	_, err := orm.NewOrm().QueryTable("privte_letter").Filter("DialogId", dialog).OrderBy("-SendTime").
 		Limit(limit, offset).All(&letters)
 	for cnt := 0; cnt < len(letters); cnt++ {
-		letters[cnt].Read = true
+		//letters[cnt].Read = true
+		_, _ = orm.NewOrm().QueryTable("privte_letter").Filter("Id", letters[cnt].Id).Update(orm.Params{
+			"Read": true})
+
 	}
 	return letters, err
 }
