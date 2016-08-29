@@ -186,9 +186,9 @@ $(document).ready(function() {
       url: "/privateletter/have-new-letter",
       success: function(data) {
         if (data["new"] == true) {
-          $(".fa-letter").addClass("new-letter");
+          $(".fa-envelope").addClass("new-letter");
         } else {
-          $(".fa-letter`").removeClass("new-letter");
+          $(".fa-envelope").removeClass("new-letter");
         }
       }
     });
@@ -196,3 +196,4 @@ $(document).ready(function() {
 }
 
   setInterval(haveNewPrivateLetter, 5000);
+
