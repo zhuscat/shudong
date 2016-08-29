@@ -88,6 +88,12 @@ func notificationRouter() {
 	beego.Router("/message/read-all", &controllers.MessageController{}, "get:ReadAll")
 	// 查询是否有新信息
 	beego.Router("/message/have-new-message", &controllers.MessageController{}, "get:HaveNewMessage")
+	//进入私信界面
+	beego.Router("/privateletter", &controllers.PrivateLetterController{}, "*:GetDialogues")
+	//发私信
+	beego.Router("/privateletter/:toid", &controllers.PrivateLetterController{}, "*:SendAPrivateLetter")
+	//查询是否有新私信
+	beego.Router("/privateletter/have-new-letter", &controllers.PrivateLetterController{}, "get:HaveNewPrivateLetter")
 }
 
 func managementRouter() {
@@ -107,13 +113,4 @@ func managementRouter() {
 	beego.Router("/management/comments/delete", &controllers.ManagementController{}, "post:DeleteComment")
 	// 禁言或解除禁言
 	beego.Router("/management/users/ban", &controllers.ManagementController{}, "post:ManageUserCanComment")
-}
-
-func privateLetterRouter() {
-	//进入私信界面
-	beego.Router("/privateletter", &controllers.PrivateLetterController{}, "*:GetDialogues")
-	//发私信
-	beego.Router("/privateletter/:toid", &controllers.PrivateLetterController{}, "*:SendAPrivateLetter")
-	//查询是否有新私信
-	beego.Router("/privateletter/have-new-letter", &controllers.PrivateLetterController{}, "get:HaveNewPrivateLetter")
 }
