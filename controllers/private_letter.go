@@ -68,8 +68,10 @@ func (self *PrivateLetterController) SendAPrivateLetter() {
 	pageOffset := (pageNumber - 1) * pageLimit
 	var totalNum int64
 	letters, _ := models.GetPrivateLetters(self.userId, toId, pageLimit, pageOffset)
+	models.ReadPrivateLetters(self.userId, toId, letters)
 	totalNum = models.GetPrivateLetterCount(self.userId, toId)
 	p := utils.NewPaginator(self.Ctx.Request, pageLimit, totalNum)
+
 
 	self.Data["Letters"] = letters
 	self.Data["User"] = user
