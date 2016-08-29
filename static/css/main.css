@@ -1063,3 +1063,12 @@ a.radius-button-middle {
 	color: #5ab6f3;
 	font-size: 14px;
 }
+
+.letterlist {
+	float:left
+}
+
+.letters {
+	float:left
+	width: 512px;
+}
