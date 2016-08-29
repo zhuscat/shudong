@@ -177,3 +177,22 @@ $(document).ready(function() {
       e.preventDefault();
   });
 });
+
+$(document).ready(function() {
+ function haveNewPrivateLetter() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/privateletter/have-new-letter",
+      success: function(data) {
+        if (data["new"] == true) {
+          $(".fa-letter").addClass("new-letter");
+        } else {
+          $(".fa-letter`").removeClass("new-letter");
+        }
+      }
+    });
+  }
+}
+
+  setInterval(haveNewPrivateLetter, 5000);
