@@ -149,6 +149,23 @@ $(document).ready(function() {
 
   setInterval(haveNewMessage, 5000);
 
+function haveNewPrivateLetter() {
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "/privateletter/have-new-letter",
+      success: function(data) {
+        if (data["new"] == true) {
+           $(".fa-envelope").addClass("new-letter");
+        } else {
+           $(".fa-envelope").removeClass("new-letter");
+        }
+      }
+    });
+  }
+
+  setInterval(haveNewPrivateLetter, 5000);
+
   $(".tab-menu>li").click(function() {
       $(".tab-menu>li").toggleClass("item-selected");
       $(".tab-menu>li").each(function() {
@@ -177,23 +194,3 @@ $(document).ready(function() {
       e.preventDefault();
   });
 });
-
-$(document).ready(function() {
- function haveNewPrivateLetter() {
-    $.ajax({
-      type: "GET",
-      dataType: "json",
-      url: "/privateletter/have-new-letter",
-      success: function(data) {
-        if (data["new"] == true) {
-          $(".fa-envelope").addClass("new-letter");
-        } else {
-          $(".fa-envelope").removeClass("new-letter");
-        }
-      }
-    });
-  }
-}
-
-  setInterval(haveNewPrivateLetter, 5000);
-
