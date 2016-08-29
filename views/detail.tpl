@@ -95,7 +95,7 @@
 		<li>QQ号：{{.Book.Vendor.Qq}}</li>
 		<li>微信：{{.Book.Vendor.Weixin}}</li>
 	</ul>
-	<a class="radius-button radius-button-small" href="">私信</a>
+	<a class="radius-button radius-button-small" {{if eq .User.Id .Book.Vendor.Id}}href="/privateletter"{{else}}href="/privateletter/{{.Book.Vendor.Id}}"{{end}}>私信</a>
 	</div>
 	</div>
 	<div class="other-book-div">
