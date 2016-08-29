@@ -22,6 +22,7 @@
 </div>
 <div class="menu">
 {{if .Login}}
+  <a class="header-menu-item" href="/privateletter" data-toggle="tooltip" data-placement="bottom" title="私信"><i class="fa fa-envelope"></i></a>
   <a class="header-menu-item" href="/book/publish" data-toggle="tooltip" data-placement="bottom" title="发布"><i class="fa fa-plus"></i></a>
   <a class="header-menu-item" href="/message" data-toggle="tooltip" data-placement="bottom" title="提醒"><i class="fa fa-bell"><div></div></i></a>
   <a class="header-menu-item" href="/profile/published/all" data-toggle="tooltip" data-placement="bottom" title="个人中心"><i class="fa fa-user"></i></a>
