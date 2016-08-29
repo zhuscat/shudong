@@ -108,3 +108,12 @@ func managementRouter() {
 	// 禁言或解除禁言
 	beego.Router("/management/users/ban", &controllers.ManagementController{}, "post:ManageUserCanComment")
 }
+
+func privateLetterRouter() {
+	//进入私信界面
+	beego.Router("/privateletter", &controllers.PrivateLetterController{}, "*:GetDialogues")
+	//发私信
+	beego.Router("/privateletter/:toid", &controllers.PrivateLetterController{}, "*:SendAPrivateLetter")
+	//查询是否有新私信
+	beego.Router("/privateletter/have-new-letter", &controllers.PrivateLetterController{}, "get:HaveNewPrivateLetter")
+}
