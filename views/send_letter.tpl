@@ -1,15 +1,9 @@
-<html>
-<head>
-	
-<title>私信对话</title>
-
-</head>
-<div class="container">	
+<div class="container">
 <div class="letters">
 <p>与 {{.ToUser.Name}} 的对话</p>
-<form action="/privateletter/{{.ToUser.Id}}" method="post">
+<form class="private-letter-form" action="/privateletter/{{.ToUser.Id}}" method="post">
 <div class="content">
-<input type="text" class="form-control" name="content"style="width:400px;" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="private-letter-input" type="text" class="form-control" name="content"style="width:400px;" >&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="submit" value=" 发送 ">
 </div>
 </form>
@@ -34,22 +28,39 @@
 	</div>
 	<ul class="menu-area">
 	</ul>
-</div>	
-
-{{range .Letters}}
-<div class="privateletters-div">
-	<p>
-	{{if eq .FromId $.User.Id}}
-	<img src="/static/www/avatar/{{$.User.Avatar}}"width="32" height="32">{{$.User.Name}}
-	{{end}}
-	{{if eq .FromId $.ToUser.Id}}
-	<img src="/static/www/avatar/{{$.ToUser.Avatar}}"width="32" height="32">{{$.ToUser.Name}}
-	{{end}}:
-	{{.Content}}</p><p style="font-size:12px;">{{.SendTime}}</p>
 </div>
-{{end}}
-
-
+<div class="private-letter-dialog">
+	{{range .Letters}}
+	<div class="privateletters-div">
+		<div>
+		{{if eq .FromId $.User.Id}}
+		<div class="private-letter-avatar-wrapper">
+			<div>
+				<img class="private-letter-avatar" src="/static/www/avatar/{{$.User.Avatar}}" />
+				<div class="private-letter-detail-link">
+					{{$.User.Name}}
+				</div>
+			</div>
+		</div>
+		{{end}}
+		{{if eq .FromId $.ToUser.Id}}
+		<div class="private-letter-avatar-wrapper">
+			<img class="private-letter-avatar" src="/static/www/avatar/{{$.ToUser.Avatar}}" />
+			<div class="private-letter-detail-link">
+				{{$.ToUser.Name}}
+			</div>
+		</div>
+		{{end}}
+		<div class="private-letter-content">
+			{{.Content}}
+		</div>
+	</div>
+	<div class="private-letter-time">
+		{{.SendTime}}
+	</div>
+	</div>
+	{{end}}
+</div>
 {{if gt .Page.PageNums 1}}
 <ul class="page">
 	{{if .Page.HasPrev}}
@@ -75,5 +86,4 @@
 {{end}}
 
 
-</div>	
-</body></html>
+</div>

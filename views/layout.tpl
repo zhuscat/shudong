@@ -7,6 +7,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/main.css">
   <link rel="stylesheet" type="text/css" href="/static/css/tooltip.css">
   <link rel="stylesheet" type="text/css" href="/static/css/management.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/private-letter.css">
   <script type="text/javascript" src="/static/js/jquery-2.2.4.js"></script>
   <script type="text/javascript" src="/static/js/tooltip.js"></script>
   <script type="text/javascript" src="/static/js/shudong.js"></script>

@@ -1,22 +1,34 @@
-<html>
-<head>
-<title>私信对话</title>
-</head>
 <div class="container">
-<div class="letterlist"> 
+<div class="letterlist">
 <p>对话列表</p>
 {{range .ToUsers}}
-	<p>
-	<img src="/static/www/avatar/{{.Avatar}}"width="32" height="32">
-	<a href="/privateletter/{{.Id}}">{{.Name}}</a>
+	<div class="private-letter-dialog">
+		<div class="private-letter-avatar-wrapper">
+			<img class="private-letter-avatar" src="/static/www/avatar/{{.Avatar}}">
+			<a class="private-letter-detail-link" href="/privateletter/{{.Id}}">{{.Name}}</a>
+		</div>
 	{{$var:=.Id}}
 	{{range $.LastLetters}}
-		<p style="font-size:14px;">
-		{{if eq .FromId $var}}{{.Content}}&nbsp;&nbsp;&nbsp;&nbsp;{{.SendTime}}{{end}}
-		{{if eq .ToId $var}}{{.Content}}&nbsp;&nbsp;&nbsp;&nbsp;{{.SendTime}}{{end}}
-		</p>
+		<div>
+		{{if eq .FromId $var}}
+		<div class="private-letter-content">
+			{{.Content}}
+		</div>
+		<div class="private-letter-time">
+			{{.SendTime}}
+		</div>
+		{{end}}
+		{{if eq .ToId $var}}
+		<div class="private-letter-content">
+			{{.Content}}
+		</div>
+		<div class="private-letter-time">
+			{{.SendTime}}
+		</div>
+		{{end}}
+	</div>
 	{{end}}
-	</p>
+	</div>
 {{end}}
 </div>
 
@@ -41,4 +53,3 @@
 	</ul>
 </div>
 </div>
-</html>
