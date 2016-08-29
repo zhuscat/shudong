@@ -115,15 +115,9 @@ func GetDialogId(uid1 int64, uid2 int64) int64 {
 func GetPrivateLetters(from int64, to int64, limit int, offset int) ([]*PrivteLetter, error) {
 	var letters []*PrivteLetter
 	dialog := GetDialogId(from, to)
-	_, err := orm.NewOrm().QueryTable("privte_letter").Filter("DialogId", dialog).OrderBy("-SendTime").
+	_, err1 := orm.NewOrm().QueryTable("privte_letter").Filter("DialogId", dialog).OrderBy("-SendTime").
 		Limit(limit, offset).All(&letters)
-	for cnt := 0; cnt < len(letters); cnt++ {
-		//letters[cnt].Read = true
-		_, _ = orm.NewOrm().QueryTable("privte_letter").Filter("Id", letters[cnt].Id).Update(orm.Params{
-			"Read": true})
-
-	}
-	return letters, err
+	return letters, err1
 }
 
 func GetPrivateLetterCount(from int64, to int64) int64 {
@@ -139,12 +133,24 @@ func GetPrivateLetterCount(from int64, to int64) int64 {
 	}
 }
 
+func ReadPrivateLetters(from int64, to int64, letters []*PrivteLetter) bool {
+	for cnt := 0; cnt < len(letters); cnt++ {
+		letters[cnt].Read = true
+		_, err := orm.NewOrm().QueryTable("privte_letter").Filter("FromId", to).Filter("ToId", from).Update(orm.Params{
+			"Read": true})
+		if err != nil {
+			return false
+		}
+	}
+	return true
+}
+
 //If there are new letters
 func HaveNewPrivateLetter(to int64) bool {
 	o := orm.NewOrm()
 	qs := o.QueryTable("privte_letter")
 
-	count, _ := qs.Filter("ToId", to).Filter("read", false).Count()
+	count, _ := qs.Filter("ToId", to).Filter("Read", false).Count()
 
 	if count > 0 {
 		return true
@@ -152,4 +158,3 @@ func HaveNewPrivateLetter(to int64) bool {
 		return false
 	}
 }
-
