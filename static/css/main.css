@@ -1072,3 +1072,13 @@ a.radius-button-middle {
 	float:left
 	width: 512px;
 }
+
+.new-letter div{
+	width: 6px;
+	height: 6px;
+	border-radius: 3px;
+	right: 0px;
+	top: 0px;
+	background-color: #5ab6f3;
+	position: absolute;
+}
